@@ -36,6 +36,7 @@ class AuthController extends Controller
     {
         $mobile = request('mobile');
         $code = request('code');
+        $codeId = request('open_id');
 
         if (!Sms::checkCode($mobile, $code)) {
             return $this->failed('验证码错误');
@@ -56,7 +57,9 @@ class AuthController extends Controller
         $token = $user->createToken($mobile)->accessToken;
 
         //2. bind user bind data to user.
-        $this->userService->bindPlatform($user->id, request('open_id'), config('wechat.mini_program.default.app_id'), 'miniprogram');
+        if($codeId) {
+            $this->userService->bindPlatform($user->id, request('open_id'), config('wechat.mini_program.default.app_id'), 'miniprogram');
+        }
 
         return $this->success(['token_type' => 'Bearer', 'access_token' => $token, 'is_new_user' => $is_new]);
     }
