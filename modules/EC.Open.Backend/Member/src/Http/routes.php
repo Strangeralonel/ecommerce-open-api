@@ -33,7 +33,7 @@ $router->group(['prefix' => 'admin/member'], function () use ($router) {
     $router->get('users/{id}/couponslist', 'UserController@couponslist')->name('admin.users.couponslist');
     $router->get('users/{id}/orderslist', 'UserController@orderslist')->name('admin.users.orderslist');
 
-    $router->get('users/getUserPointData/{id}/{type}', 'UserController@getUserPointData')->name('admin.users.getUserPointList');
+    $router->get('users/getUserPointData/{id}', 'UserController@getUserPointData')->name('admin.users.getUserPointList');
 
     $router->post('users/addPoint', 'UserController@addPoint')->name('admin.users.addPoint');
 
